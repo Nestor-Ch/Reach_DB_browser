@@ -6,7 +6,7 @@ DECLARE @sql NVARCHAR(MAX);
 -- Construct the dynamic SQL
 SET @sql = STUFF(
     (
-        SELECT ' UNION ALL SELECT top 1 ''' + TABLE_ID + ''' as TABLE_ID, [start] AS value FROM data_' + TABLE_ID+'_'+main_datasheet+'_DCMPR' 
+        SELECT ' UNION ALL SELECT top 1 ''' + TABLE_ID + ''' as TABLE_ID, [start] AS value FROM [data_' + TABLE_ID + '_' + main_datasheet + '_DCMPR]'
         FROM data_representative_table
 		where status = 'decompressed' 
 		AND 'data_' + TABLE_ID + '_' + main_datasheet + '_DCMPR' IN (SELECT name FROM sys.tables)
@@ -98,7 +98,3 @@ projects_data <- projects_data %>%
     survey_type = sapply(strsplit(projects_data$TABLE_ID, "_"), "[[", 3))
 
 ############### GEO PART
-
-
-
-
